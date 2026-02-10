@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guess</title>
+    <link rel="stylesheet" href="/css/homePage.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="baslik">Guess The Number</h1>
+            
+            <div id="target-box" class="machine-box hidden-number">
+                <span id="secret-number"><%= dogruSayi %></span>
+            </div>
+
+            <div id="feedback-area" class="feedback"></div>
+
+            <div class="button-grid">
+                <% hepsi.forEach((tekSik) => { %>
+                    <button class="guess-btn" onclick="checkGuess(this, '<%= tekSik %>', '<%= dogruSayi %>')">
+                        <%= tekSik %>
+                    </button>
+                <% }); %>
+            </div>
+            
+            <button onclick="window.location.reload()" class="retry-btn">Again</button>
+        </div>
+    </div>
+
+    <script>
+        function checkGuess(btn, guess, correct) {
+            const feedback = document.getElementById('feedback-area');
+            const targetBox = document.getElementById('target-box');
+
+            if (guess === correct) {
+                targetBox.classList.remove('hidden-number');
+                targetBox.classList.add('correct-flash');
+                feedback.innerHTML = "🎉 Congratulations! Guessed correctly.";
+                feedback.style.color = "#4ade80";
+                
+                document.querySelectorAll('.guess-btn').forEach(b => b.disabled = true);
+            } else {
+                btn.classList.add('wrong-shake');
+                btn.disabled = true;
+                feedback.innerHTML = "❌ Wrong! Try again.";
+                feedback.style.color = "#f87171";
+                
+                setTimeout(() => btn.classList.remove('wrong-shake'), 500);
+            }
+        }
+    </script>
+</body>
+</html>
