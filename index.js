@@ -2,7 +2,7 @@ const express = require('express');
 const randomNumber = require('./randomNumber');
 const app = express();
 const router = express.Router();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.set('view engine', 'ejs');
 
